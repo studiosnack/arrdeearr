@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8DB4C24C2B9D1DA90057BDB1 /* RDRWStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4C24B2B9D1DA90057BDB1 /* RDRWStruct.swift */; };
 		8DC1EDBD2B935B2100A8FB01 /* arrdeearrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1EDBC2B935B2100A8FB01 /* arrdeearrApp.swift */; };
 		8DC1EDBF2B935B2100A8FB01 /* arrdeearrDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1EDBE2B935B2100A8FB01 /* arrdeearrDocument.swift */; };
 		8DC1EDC12B935B2100A8FB01 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1EDC02B935B2100A8FB01 /* ContentView.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8DB4C24B2B9D1DA90057BDB1 /* RDRWStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RDRWStruct.swift; sourceTree = "<group>"; };
 		8DC1EDB92B935B2100A8FB01 /* arrdeearr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = arrdeearr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DC1EDBC2B935B2100A8FB01 /* arrdeearrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = arrdeearrApp.swift; sourceTree = "<group>"; };
 		8DC1EDBE2B935B2100A8FB01 /* arrdeearrDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = arrdeearrDocument.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		8DC1EDBB2B935B2100A8FB01 /* arrdeearr */ = {
 			isa = PBXGroup;
 			children = (
+				8DB4C24B2B9D1DA90057BDB1 /* RDRWStruct.swift */,
 				8DC1EDBC2B935B2100A8FB01 /* arrdeearrApp.swift */,
 				8DC1EDBE2B935B2100A8FB01 /* arrdeearrDocument.swift */,
 				8DC1EDC02B935B2100A8FB01 /* ContentView.swift */,
@@ -267,6 +270,7 @@
 				8DC1EDBD2B935B2100A8FB01 /* arrdeearrApp.swift in Sources */,
 				8DC1EDBF2B935B2100A8FB01 /* arrdeearrDocument.swift in Sources */,
 				8DC1EDC12B935B2100A8FB01 /* ContentView.swift in Sources */,
+				8DB4C24C2B9D1DA90057BDB1 /* RDRWStruct.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

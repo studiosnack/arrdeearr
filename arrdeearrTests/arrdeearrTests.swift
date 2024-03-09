@@ -10,15 +10,29 @@ import XCTest
 
 final class arrdeearrTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+  override func setUpWithError() throws {
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+  }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+  override func tearDownWithError() throws {
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+  }
+
+  func testImport() throws {
+    let decoder = JSONDecoder()
+    
+//    let configuration = try FileWrapper.init(url: URL.init(filePath: "/Users/marcos/projects/redraw/arrdeearr/arrdeearrTests/config.json"))
+    let configuration = try FileWrapper.init(url: URL.init(filePath: "/Users/marcos/projects/redraw/stash.rdrw/config.json"))
+
+    let data = configuration.regularFileContents
+//          let string = String(data: data, encoding: .utf8)
+
+    let testDoc = try decoder.decode(RDRWDbService.self, from: data!)
+
+  }
 
     func testExample() throws {
+
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         // Any test you write for XCTest can be annotated as throws and async.

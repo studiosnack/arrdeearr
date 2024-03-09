@@ -10,8 +10,8 @@ import SwiftUI
 @main
 struct arrdeearrApp: App {
     var body: some Scene {
-        DocumentGroup(newDocument: arrdeearrDocument()) { file in
-            ContentView(document: file.$document)
+        DocumentGroup(newDocument: arrdeearrDocument(version: 1)) { config in
+            ContentView(document: config.$document)
         }
     }
 }

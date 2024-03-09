@@ -1,0 +1,37 @@
+{
+  "mainstore": {
+    "categories": {
+      "categories": [
+        {
+          "name": "shoes",
+          "parentId": "root",
+          "id": "jkckjM"
+        },
+        {
+          "name": "shirts",
+          "parentId": "root",
+          "id": "H7Q77H"
+        }
+      ],
+      "ordering": {
+        "root": [
+          "jkckjM",
+          "H7Q77H"
+        ]
+      },
+      "sideBarOpenedState": {}
+    },
+    "application": {
+      "sideBarOpenedState": {},
+      "wantsChildInput": {}
+    },
+    "items": {
+      "items": {},
+      "itemOrdering": [],
+      "schemas": {}
+    },
+    "fits": {
+      "log": []
+    }
+  }
+}

@@ -12,28 +12,44 @@ extension UTType {
     static var exampleText: UTType {
         UTType(importedAs: "com.example.plain-text")
     }
+  static var rdrwPackage: UTType {
+    UTType(importedAs: "cx.generic.rdrw-doc")
+  }
 }
 
+struct RDRWMetaService: Codable {
+  let version: String;
+}
+
+
 struct arrdeearrDocument: FileDocument {
-    var text: String
+  var text: String
+  var version: Int
+  var store: RDRWStore?
 
-    init(text: String = "Hello, world!") {
-        self.text = text
-    }
+  init(text: String = "Hello, world!", version: Int) {
+    self.text = text
+    self.version = version
+//    self.store = RDRWStore();
+  }
 
-    static var readableContentTypes: [UTType] { [.exampleText] }
+  static var readableContentTypes: [UTType] { [.exampleText, .rdrwPackage] }
 
-    init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.regularFileContents,
-              let string = String(data: data, encoding: .utf8)
-        else {
-            throw CocoaError(.fileReadCorruptFile)
-        }
-        text = string
+  init(configuration: ReadConfiguration) throws {
+    let decoder = JSONDecoder()
+    let wrapper = configuration.file.fileWrappers
+    guard let data = wrapper?["config.json"]?.regularFileContents
+    else {
+        throw CocoaError(.fileReadCorruptFile)
     }
-    
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let data = text.data(using: .utf8)!
-        return .init(regularFileWithContents: data)
-    }
+    let jsonData = try decoder.decode(RDRWDbService.self, from: data)
+    text = "string"
+    version = 1
+    store = jsonData.mainstore
+  }
+
+  func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+    let data = text.data(using: .utf8)!
+    return .init(regularFileWithContents: data)
+  }
 }
