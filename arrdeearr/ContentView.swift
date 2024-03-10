@@ -11,7 +11,7 @@ struct ContentView: View {
   @Binding var document: arrdeearrDocument
 
   var body: some View {
-    let rootOrdering = document.store?.categories?.ordering["root"] ?? [];
+    let rootOrdering = document.store?.categories.ordering["root"] ?? [];
     let categoryStore = document.store?.categories;
 
     NavigationSplitView{
@@ -23,6 +23,38 @@ struct ContentView: View {
   }
 }
 
+struct DefaultContentView_Preview: PreviewProvider {
+
+  static var previews: some View {
+    ContentView(document: .constant(
+      arrdeearrDocument(
+        version:1,
+        store: RDRWStore(categories: CategoryStore(
+          categories: [
+            Category(id: "foo", parentId: "root", name: "Fooooo"),
+            Category(id: "bar", parentId: "root", name: "Baaaaar")
+          ],
+          ordering:[
+            "root": ["foo", "bar"]
+          ]
+        )
+        )
+      )
+    )
+    )
+  }
+
+}
+
+//struct DefaultContentView: View {
+//  @State var doc = arrdeearrDocument(version:1,
+//    store: RDRWStore())
+//
+//  var body: some View {
+//    ContentView(document: $doc)
+//  }
+//}
+//
 //#Preview {
-//    ContentView()
+//  DefaultContentView()
 //}

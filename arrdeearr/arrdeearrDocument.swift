@@ -23,14 +23,12 @@ struct RDRWMetaService: Codable {
 
 
 struct arrdeearrDocument: FileDocument {
-  var text: String
   var version: Int
   var store: RDRWStore?
 
-  init(text: String = "Hello, world!", version: Int) {
-    self.text = text
+  init(version: Int = 1, store: RDRWStore = RDRWStore()) {
     self.version = version
-//    self.store = RDRWStore();
+    self.store = store;
   }
 
   static var readableContentTypes: [UTType] { [.exampleText, .rdrwPackage] }
@@ -43,13 +41,12 @@ struct arrdeearrDocument: FileDocument {
         throw CocoaError(.fileReadCorruptFile)
     }
     let jsonData = try decoder.decode(RDRWDbService.self, from: data)
-    text = "string"
     version = 1
     store = jsonData.mainstore
   }
 
   func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-    let data = text.data(using: .utf8)!
+    let data = "text".data(using: .utf8)!
     return .init(regularFileWithContents: data)
   }
 }
