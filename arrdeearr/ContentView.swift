@@ -23,38 +23,66 @@ struct ContentView: View {
   }
 }
 
-struct DefaultContentView_Preview: PreviewProvider {
+struct OutlineContentView: View {
+  @Binding var document: arrdeearrDocument
 
-  static var previews: some View {
-    ContentView(document: .constant(
-      arrdeearrDocument(
-        version:1,
-        store: RDRWStore(categories: CategoryStore(
-          categories: [
-            Category(id: "foo", parentId: "root", name: "Fooooo"),
-            Category(id: "bar", parentId: "root", name: "Baaaaar")
-          ],
-          ordering:[
-            "root": ["foo", "bar"]
-          ]
-        )
-        )
-      )
-    )
-    )
+  var body: some View {
+    let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(store: document.store!.categories, atPath: "root") ?? []
+
+    NavigationSplitView {
+      List(outlineData) { (category: CategoryTree) in
+        OutlineGroup(category, children: \.children) { item in
+          Text("\(item.value.name)")
+        }
+      }
+    } content: {} detail: {}
+
+    //    OutlineGroup(outlineData, children: \.children) { item in
+//      Text("\(item.name)")
+//    }
   }
-
 }
 
-//struct DefaultContentView: View {
-//  @State var doc = arrdeearrDocument(version:1,
-//    store: RDRWStore())
-//
-//  var body: some View {
-//    ContentView(document: $doc)
-//  }
-//}
-//
-//#Preview {
-//  DefaultContentView()
-//}
+let catStore = RDRWStore(categories: CategoryStore(
+  categories: [
+    Category(id: "foo", parentId: "root", name: "Fooooo"),
+    Category(id: "bar", parentId: "root", name: "Baaaaar"),
+    Category(id: "baz", parentId: "foo", name: "Baz!"),
+    Category(id: "qux", parentId: "baz", name: "Quxx!")
+  ],
+  ordering:[
+    "root": ["foo", "bar"],
+    "foo": ["baz"],
+    "baz": ["qux"],
+  ]
+)
+);
+
+struct OutlineView: View {
+  var body: some View {
+        OutlineContentView(document: .constant(
+          arrdeearrDocument(
+            version:1,
+            store: catStore
+          )
+        )
+        )
+  }
+}
+
+#Preview("Outline Content View") {
+  OutlineView()
+}
+
+struct DefaultContentView: View {
+  @State var doc = arrdeearrDocument(version:1,
+    store: RDRWStore())
+
+  var body: some View {
+    ContentView(document: $doc)
+  }
+}
+
+#Preview("Default Content View") {
+  DefaultContentView()
+}

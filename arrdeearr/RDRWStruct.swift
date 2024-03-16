@@ -13,6 +13,32 @@ struct Category: Codable {
   var name: String;
 }
 
+struct CategoryTree: Identifiable {
+  let value: Category;
+  let children: [CategoryTree]?;
+
+  var id: String {
+    get {
+      return self.value.id
+    }
+  }
+
+  static func forCategoryStore(store: CategoryStore, atPath: String) -> [CategoryTree]? {
+    let kids: [String]? = store.ordering[atPath];
+    if (kids != nil) {
+      var res: [CategoryTree] = [];
+      for catId in kids! {
+        let branch = CategoryTree(
+          value: store.categoryFor(id: catId)!,
+          children: CategoryTree.forCategoryStore(store: store, atPath: catId))
+        res.append(branch)
+      }
+      return res;
+    }
+    return nil;
+  }
+}
+
 struct CategoryStore: Codable {
   var categories: [Category] = [];
 //    let sideBarOpenedState: [String: Bool]? = [];
@@ -20,6 +46,24 @@ struct CategoryStore: Codable {
 
   func categoryFor(id: String) -> Category? {
     return self.categories.first(where: {$0.id == id})
+  }
+
+  func categoryAsTree(id: String) -> [CategoryTree]? {
+    let kids: [String]? = self.ordering[id];
+    if (kids != nil) {
+      var res: [CategoryTree] = [];
+      for catId in kids! {
+        let branch = CategoryTree(
+          value: self.categoryFor(id: catId)!,
+          children: self.categoryAsTree(id: catId))
+        res.append(branch)
+      }
+      return res;
+      /**
+        not sure why this didn't work as a map closure
+       */
+    }
+    return nil;
   }
 }
 
