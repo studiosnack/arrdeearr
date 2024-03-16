@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		8DB4C24C2B9D1DA90057BDB1 /* RDRWStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4C24B2B9D1DA90057BDB1 /* RDRWStruct.swift */; };
 		8DC1EDBD2B935B2100A8FB01 /* arrdeearrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1EDBC2B935B2100A8FB01 /* arrdeearrApp.swift */; };
-		8DC1EDBF2B935B2100A8FB01 /* arrdeearrDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1EDBE2B935B2100A8FB01 /* arrdeearrDocument.swift */; };
+		8DC1EDBF2B935B2100A8FB01 /* ArrdeearrDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1EDBE2B935B2100A8FB01 /* ArrdeearrDocument.swift */; };
 		8DC1EDC12B935B2100A8FB01 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1EDC02B935B2100A8FB01 /* ContentView.swift */; };
 		8DC1EDC32B935B2200A8FB01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DC1EDC22B935B2200A8FB01 /* Assets.xcassets */; };
 		8DC1EDC62B935B2200A8FB01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DC1EDC52B935B2200A8FB01 /* Preview Assets.xcassets */; };
@@ -40,7 +40,7 @@
 		8DB4C24B2B9D1DA90057BDB1 /* RDRWStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RDRWStruct.swift; sourceTree = "<group>"; };
 		8DC1EDB92B935B2100A8FB01 /* arrdeearr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = arrdeearr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DC1EDBC2B935B2100A8FB01 /* arrdeearrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = arrdeearrApp.swift; sourceTree = "<group>"; };
-		8DC1EDBE2B935B2100A8FB01 /* arrdeearrDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = arrdeearrDocument.swift; sourceTree = "<group>"; };
+		8DC1EDBE2B935B2100A8FB01 /* ArrdeearrDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrdeearrDocument.swift; sourceTree = "<group>"; };
 		8DC1EDC02B935B2100A8FB01 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8DC1EDC22B935B2200A8FB01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DC1EDC52B935B2200A8FB01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -104,7 +104,7 @@
 			children = (
 				8DB4C24B2B9D1DA90057BDB1 /* RDRWStruct.swift */,
 				8DC1EDBC2B935B2100A8FB01 /* arrdeearrApp.swift */,
-				8DC1EDBE2B935B2100A8FB01 /* arrdeearrDocument.swift */,
+				8DC1EDBE2B935B2100A8FB01 /* ArrdeearrDocument.swift */,
 				8DC1EDC02B935B2100A8FB01 /* ContentView.swift */,
 				8DC1EDC22B935B2200A8FB01 /* Assets.xcassets */,
 				8DC1EDC72B935B2200A8FB01 /* Info.plist */,
@@ -270,7 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC1EDBD2B935B2100A8FB01 /* arrdeearrApp.swift in Sources */,
-				8DC1EDBF2B935B2100A8FB01 /* arrdeearrDocument.swift in Sources */,
+				8DC1EDBF2B935B2100A8FB01 /* ArrdeearrDocument.swift in Sources */,
 				8DC1EDC12B935B2100A8FB01 /* ContentView.swift in Sources */,
 				8DB4C24C2B9D1DA90057BDB1 /* RDRWStruct.swift in Sources */,
 			);

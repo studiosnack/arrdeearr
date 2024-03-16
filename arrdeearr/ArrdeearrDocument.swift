@@ -22,7 +22,7 @@ struct RDRWMetaService: Codable {
 }
 
 
-struct arrdeearrDocument: FileDocument {
+struct ArrdeearrDocument: FileDocument {
   var version: Int
   var store: RDRWStore?
 

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-  @Binding var document: arrdeearrDocument
+  @Binding var document: ArrdeearrDocument
 
   var body: some View {
     let rootOrdering = document.store?.categories.ordering["root"] ?? [];
@@ -24,7 +24,7 @@ struct ContentView: View {
 }
 
 struct OutlineContentView: View {
-  @Binding var document: arrdeearrDocument
+  @Binding var document: ArrdeearrDocument
 
   var body: some View {
     let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(store: document.store!.categories, atPath: "root") ?? []
@@ -58,10 +58,10 @@ let catStore = RDRWStore(categories: CategoryStore(
 )
 );
 
-struct OutlineView: View {
+struct NestedOutlineView: View {
   var body: some View {
         OutlineContentView(document: .constant(
-          arrdeearrDocument(
+          ArrdeearrDocument(
             version:1,
             store: catStore
           )
@@ -70,19 +70,21 @@ struct OutlineView: View {
   }
 }
 
-#Preview("Outline Content View") {
-  OutlineView()
-}
 
-struct DefaultContentView: View {
-  @State var doc = arrdeearrDocument(version:1,
-    store: RDRWStore())
+struct NestedDefaultView: View {
+  @State var doc = ArrdeearrDocument(version:1,
+    store: catStore)
 
   var body: some View {
     ContentView(document: $doc)
   }
 }
 
+
+#Preview("Outline Content View") {
+  NestedOutlineView()
+}
+
 #Preview("Default Content View") {
-  DefaultContentView()
+  NestedDefaultView()
 }
