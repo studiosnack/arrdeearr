@@ -32,16 +32,38 @@ struct OutlineContentView: View {
     NavigationSplitView {
       List(outlineData) { (category: CategoryTree) in
         OutlineGroup(category, children: \.children) { item in
-          Text("\(item.value.name)")
+          NavigationLink("\(item.value.name)", value: item.id)
         }
       }
     } content: {} detail: {}
-
-    //    OutlineGroup(outlineData, children: \.children) { item in
-//      Text("\(item.name)")
-//    }
   }
 }
+
+struct ConfigurableDisclosureContentView: View {
+  @Binding var document: ArrdeearrDocument;
+
+  var body: some View {
+    let sidebarState = document.store!.application.sideBarOpenedState
+
+    let selectedCategoryRow = document.store!.application.selectedCategoryRow
+
+    func isOpen(path: String) -> Bool {
+      return sidebarState[path] ?? false == true
+    }
+
+    let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(store: document.store!.categories, atPath: "root") ?? []
+
+      return NavigationSplitView {
+        // TODO(marcos): figure out how to correctly reference the selection
+        List(outlineData, id: \.id, selection: .constant(selectedCategoryRow)) { item in
+          ConfigurableDisclosureGroup(data: item, path: \.children, isOpen: {tree in isOpen(path: tree.id)} ) { treeEntry in
+              NavigationLink(treeEntry.value.name, value: treeEntry.id)
+            }
+        }
+      } content: {} detail: {}
+  }
+}
+
 
 let catStore = RDRWStore(categories: CategoryStore(
   categories: [
@@ -55,36 +77,27 @@ let catStore = RDRWStore(categories: CategoryStore(
     "foo": ["baz"],
     "baz": ["qux"],
   ]
-)
+), application: ApplicationStore(
+    sideBarOpenedState: ["foo": true, "baz": false]
+  )
 );
-
-struct NestedOutlineView: View {
-  var body: some View {
-        OutlineContentView(document: .constant(
-          ArrdeearrDocument(
-            version:1,
-            store: catStore
-          )
-        )
-        )
-  }
-}
-
-
-struct NestedDefaultView: View {
-  @State var doc = ArrdeearrDocument(version:1,
-    store: catStore)
-
-  var body: some View {
-    ContentView(document: $doc)
-  }
-}
 
 
 #Preview("Outline Content View") {
-  NestedOutlineView()
+  @State var doc = ArrdeearrDocument(version:1,
+    store: catStore)
+
+  return OutlineContentView(document: $doc);
 }
 
 #Preview("Default Content View") {
-  NestedDefaultView()
+  @State var doc = ArrdeearrDocument(version:1,
+    store: catStore)
+  return ContentView(document: $doc);
+}
+
+#Preview("Configurable Content View") {
+  @State var doc = ArrdeearrDocument(version:1,
+    store: catStore)
+  return ConfigurableDisclosureContentView(document: $doc);
 }

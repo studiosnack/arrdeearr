@@ -23,9 +23,7 @@ final class arrdeearrTests: XCTestCase {
     
 //    let configuration = try FileWrapper.init(url: URL.init(filePath: "/Users/marcos/projects/redraw/arrdeearr/arrdeearrTests/config.json"))
     let configuration = try FileWrapper.init(url: URL.init(filePath: "/Users/marcos/projects/redraw/stash.rdrw/config.json"))
-
     let data = configuration.regularFileContents
-//          let string = String(data: data, encoding: .utf8)
 
     let testDoc = try decoder.decode(RDRWDbService.self, from: data!)
 

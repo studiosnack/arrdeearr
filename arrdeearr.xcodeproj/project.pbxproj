@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D1A6B422BA64B50008E95A5 /* ConfigurableDisclosureGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1A6B412BA64AFE008E95A5 /* ConfigurableDisclosureGroup.swift */; };
 		8DB4C24C2B9D1DA90057BDB1 /* RDRWStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4C24B2B9D1DA90057BDB1 /* RDRWStruct.swift */; };
 		8DC1EDBD2B935B2100A8FB01 /* arrdeearrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1EDBC2B935B2100A8FB01 /* arrdeearrApp.swift */; };
 		8DC1EDBF2B935B2100A8FB01 /* ArrdeearrDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1EDBE2B935B2100A8FB01 /* ArrdeearrDocument.swift */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		8D1A6B402B9D5DC1008E95A5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8D1A6B412BA64AFE008E95A5 /* ConfigurableDisclosureGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableDisclosureGroup.swift; sourceTree = "<group>"; };
 		8DB4C24B2B9D1DA90057BDB1 /* RDRWStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RDRWStruct.swift; sourceTree = "<group>"; };
 		8DC1EDB92B935B2100A8FB01 /* arrdeearr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = arrdeearr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DC1EDBC2B935B2100A8FB01 /* arrdeearrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = arrdeearrApp.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 		8DC1EDBB2B935B2100A8FB01 /* arrdeearr */ = {
 			isa = PBXGroup;
 			children = (
+				8D1A6B412BA64AFE008E95A5 /* ConfigurableDisclosureGroup.swift */,
 				8DB4C24B2B9D1DA90057BDB1 /* RDRWStruct.swift */,
 				8DC1EDBC2B935B2100A8FB01 /* arrdeearrApp.swift */,
 				8DC1EDBE2B935B2100A8FB01 /* ArrdeearrDocument.swift */,
@@ -273,6 +276,7 @@
 				8DC1EDBF2B935B2100A8FB01 /* ArrdeearrDocument.swift in Sources */,
 				8DC1EDC12B935B2100A8FB01 /* ContentView.swift in Sources */,
 				8DB4C24C2B9D1DA90057BDB1 /* RDRWStruct.swift in Sources */,
+				8D1A6B422BA64B50008E95A5 /* ConfigurableDisclosureGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

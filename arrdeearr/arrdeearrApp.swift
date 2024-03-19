@@ -11,7 +11,7 @@ import SwiftUI
 struct arrdeearrApp: App {
     var body: some Scene {
         DocumentGroup(newDocument: ArrdeearrDocument(version: 1)) { config in
-            ContentView(document: config.$document)
+          ConfigurableDisclosureContentView(document: config.$document)
         }
     }
 }
