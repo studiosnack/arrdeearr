@@ -27,27 +27,3 @@ struct ConfigurableDisclosureGroup<Treelike, Children>: View where Children: Vie
     }
   }
 }
-
-let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(store: catStore.categories, atPath: "root") ?? []
-
-struct StatefulSidebar_Preview: View {
-  var sidebarState = State(initialValue: catStore.application.sideBarOpenedState)
-
-  func isOpen(path: String) -> Bool {
-    return sidebarState.wrappedValue[path] ?? false == true
-  }
-
-  var body: some View {
-    NavigationSplitView {
-      List(outlineData) { item in
-        ConfigurableDisclosureGroup(data: item, path: \.children, isOpen: {tree in isOpen(path: tree.id)} ) { treeEntry in
-            NavigationLink(treeEntry.value.name, value: treeEntry.id)
-          }
-      }
-    } content: {} detail: {}
-  }
-}
-
-#Preview("sidebar with state") {
-  StatefulSidebar_Preview()
-}
