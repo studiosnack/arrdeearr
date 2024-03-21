@@ -79,29 +79,40 @@ struct ApplicationStore: Codable {
   }
 }
 
+struct Item: Codable {
+  let id: String;
+  var dateAdded: Double;
+  var properties: [Field];
+
+  func propertyWith(label: String) -> String? {
+    self.properties.first(where: {p in p.label == label})?.value
+  }
+}
+
+struct Field: Codable {
+  var label: String;
+  var categoryId: String?;
+  var value: String?;
+  var type: FieldType;
+  var hidden: Bool?;
+
+  enum FieldType: String, Codable {
+    case string
+    case number
+    case currency
+    case year
+    case url
+    case date
+    case boolean
+  }
+}
+
 struct ItemStore: Codable {
   var items: [String: Item] = [:];
-
-  struct Item: Codable {
-    let id: String;
-    var dateAdded: Double;
-    var properties: [Field];
-  }
-  struct Field: Codable {
-    var label: String;
-    var categoryId: String?;
-    var value: String?;
-    var type: FieldType;
-    var hidden: Bool?;
-
-    enum FieldType: String, Codable {
-      case string
-      case number
-      case currency
-      case year
-      case url
-      case date
-      case boolean
+  
+  func itemsWithCategory(id: String) -> [Item] {
+    self.items.values.filter { item in
+      item.properties.contains(where: {field in field.categoryId == id})
     }
   }
 }

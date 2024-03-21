@@ -11,13 +11,13 @@ struct ContentView: View {
   @Binding var document: ArrdeearrDocument
 
   var body: some View {
-    let rootOrdering = document.store?.categories.ordering["root"] ?? [];
-    let categoryStore = document.store?.categories;
+    let rootOrdering = document.store.categories.ordering["root"] ?? [];
+    let categoryStore = document.store.categories;
 
     NavigationSplitView{
 
       List(rootOrdering, id: \.self) { item in
-        Text(categoryStore?.categoryFor(id: item)?.name ?? "no name???")
+        Text(categoryStore.categoryFor(id: item)?.name ?? "no name???")
       }.listStyle(.sidebar)
     } content: {} detail: {}
   }
@@ -27,7 +27,7 @@ struct OutlineContentView: View {
   @Binding var document: ArrdeearrDocument
 
   var body: some View {
-    let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(store: document.store!.categories, atPath: "root") ?? []
+    let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(store: document.store.categories, atPath: "root") ?? []
 
     NavigationSplitView {
       List(outlineData) { (category: CategoryTree) in
@@ -43,15 +43,17 @@ struct ConfigurableDisclosureContentView: View {
   @Binding var document: ArrdeearrDocument;
 
   var body: some View {
-    let sidebarState = document.store!.application.sideBarOpenedState
+    let sidebarState = document.store.application.sideBarOpenedState
 
-    let selectedCategoryRow = document.store!.application.selectedCategoryRow
+    var selectedCategoryRow = document.store.application.selectedCategoryRow
+
+    let availableItems = selectedCategoryRow != nil ? document.store.items.itemsWithCategory(id: selectedCategoryRow!) : []
 
     func isOpen(path: String) -> Bool {
       return sidebarState[path] ?? false == true
     }
 
-    let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(store: document.store!.categories, atPath: "root") ?? []
+    let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(store: document.store.categories, atPath: "root") ?? []
 
       return NavigationSplitView {
         // TODO(marcos): figure out how to correctly reference the selection
@@ -60,7 +62,12 @@ struct ConfigurableDisclosureContentView: View {
               NavigationLink(treeEntry.value.name, value: treeEntry.id)
             }
         }
-      } content: {} detail: {}
+      } content: {
+        availableItems.count > 0 ? List(availableItems, id: \.id) { item in
+          let itemName = item.propertyWith(label: "Name") ?? "missing name"
+          Text("\(itemName)")
+        } : nil
+      } detail: {}
   }
 }
 
@@ -79,7 +86,13 @@ let catStore = RDRWStore(categories: CategoryStore(
   ]
 ), application: ApplicationStore(
     sideBarOpenedState: ["foo": true, "baz": false]
-  )
+  ),
+                         items: ItemStore(items: ["a":
+    Item(id: "a", dateAdded: 123, properties: [
+      Field(label: "Name", value: "A thing", type: .string),
+      Field(label: "Category", categoryId: "foo", type: .string)
+    ])
+  ])
 );
 
 

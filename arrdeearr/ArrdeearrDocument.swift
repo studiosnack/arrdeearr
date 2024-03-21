@@ -24,7 +24,7 @@ struct RDRWMetaService: Codable {
 
 struct ArrdeearrDocument: FileDocument {
   var version: Int
-  var store: RDRWStore?
+  var store: RDRWStore = RDRWStore()
 
   init(version: Int = 1, store: RDRWStore = RDRWStore()) {
     self.version = version
