@@ -46,7 +46,14 @@ struct ArrdeearrDocument: FileDocument {
   }
 
   func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-    let data = "text".data(using: .utf8)!
-    return .init(regularFileWithContents: data)
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = .prettyPrinted
+    let config = try encoder.encode(["mainstore": store])
+    let meta = try encoder.encode(["version": version])
+
+    return .init(directoryWithFileWrappers: [
+      "meta.json": .init(regularFileWithContents: meta),
+      "config.json": .init(regularFileWithContents: config)
+    ])
   }
 }

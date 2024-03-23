@@ -43,22 +43,25 @@ struct ConfigurableDisclosureContentView: View {
   @Binding var document: ArrdeearrDocument;
 
   var body: some View {
-    let sidebarState = document.store.application.sideBarOpenedState
 
-    var selectedCategoryRow = document.store.application.selectedCategoryRow
+    let selectedCategoryRow = Binding(get: {
+      document.store.application.selectedCategoryRow
+    }, set: {
+      rowId in document.store.application.selectedCategoryRow = rowId
+    })
 
-    let availableItems = selectedCategoryRow != nil ? document.store.items.itemsWithCategory(id: selectedCategoryRow!) : []
+    let availableItems = selectedCategoryRow.wrappedValue != nil ? document.store.items.itemsWithCategory(id: selectedCategoryRow.wrappedValue!) : []
 
-    func isOpen(path: String) -> Bool {
-      return sidebarState[path] ?? false == true
+    func bindingForPath(path: String) -> Binding<Bool> {
+      Binding(get: {document.store.application.sideBarOpenedState[path] ?? false}, set: {val in document.store.application.sideBarOpenedState[path] = val ? val : nil})
     }
 
     let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(store: document.store.categories, atPath: "root") ?? []
 
       return NavigationSplitView {
         // TODO(marcos): figure out how to correctly reference the selection
-        List(outlineData, id: \.id, selection: .constant(selectedCategoryRow)) { item in
-          ConfigurableDisclosureGroup(data: item, path: \.children, isOpen: {tree in isOpen(path: tree.id)} ) { treeEntry in
+        List(outlineData, id: \.id, selection: selectedCategoryRow) { item in
+          ConfigurableDisclosureGroup(data: item, path: \.children, isOpen: {tree in bindingForPath(path: tree.id)} ) { treeEntry in
               NavigationLink(treeEntry.value.name, value: treeEntry.id)
             }
         }

@@ -41,7 +41,9 @@ struct CategoryTree: Identifiable {
 
 struct CategoryStore: Codable {
   var categories: [Category] = [];
-//    let sideBarOpenedState: [String: Bool]? = [];
+//  sidebareOpenedState is vestigial property in the
+//  spec but doesn't get used
+//  let sideBarOpenedState: [String: Bool]? = [];
   var ordering: [String: [String]] = [:]; // the value of this dict is a bunch of ids of actual categories
 
   func categoryFor(id: String) -> Category? {
