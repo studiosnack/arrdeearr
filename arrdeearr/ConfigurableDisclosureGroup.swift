@@ -15,12 +15,10 @@ struct ConfigurableDisclosureGroup<Treelike, Children>: View where Children: Vie
   let children: (Treelike) -> Children;
 
   var body: some View {
-    var isExpanded = isOpen(data)
-
     let childData = data[keyPath: path];
     if (childData != nil) {
       DisclosureGroup(
-        isExpanded: isExpanded,
+        isExpanded: isOpen(data),
         content: { ForEach(childData!) {child in ConfigurableDisclosureGroup(data: child, path: path, isOpen: isOpen, children: children)}  },
         label: { children(data)}
         )

@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+struct SelectedCategoryKey: FocusedValueKey {
+  typealias Value = Category
+}
+
+extension FocusedValues {
+  var selectedCategory: SelectedCategoryKey.Value? {
+    get { self[SelectedCategoryKey.self]}
+    set { self[SelectedCategoryKey.self] = newValue }
+  }
+}
+
 struct ContentView: View {
   @Binding var document: ArrdeearrDocument
 
@@ -58,19 +69,19 @@ struct ConfigurableDisclosureContentView: View {
 
     let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(store: document.store.categories, atPath: "root") ?? []
 
-      return NavigationSplitView {
-        // TODO(marcos): figure out how to correctly reference the selection
-        List(outlineData, id: \.id, selection: selectedCategoryRow) { item in
+    return NavigationSplitView {
+      List(outlineData, id: \.id, selection: selectedCategoryRow) { item in
           ConfigurableDisclosureGroup(data: item, path: \.children, isOpen: {tree in bindingForPath(path: tree.id)} ) { treeEntry in
-              NavigationLink(treeEntry.value.name, value: treeEntry.id)
-            }
+              SidebarCategoryRow(treeEntry: treeEntry)
+          }
         }
       } content: {
         availableItems.count > 0 ? List(availableItems, id: \.id) { item in
           let itemName = item.propertyWith(label: "Name") ?? "missing name"
           Text("\(itemName)")
         } : nil
-      } detail: {}
+      } detail: {
+      }
   }
 }
 
@@ -99,6 +110,12 @@ let catStore = RDRWStore(categories: CategoryStore(
 );
 
 
+#Preview("Configurable Content View") {
+  @State var doc = ArrdeearrDocument(version:1,
+    store: catStore)
+  return ConfigurableDisclosureContentView(document: $doc);
+}
+
 #Preview("Outline Content View") {
   @State var doc = ArrdeearrDocument(version:1,
     store: catStore)
@@ -112,8 +129,3 @@ let catStore = RDRWStore(categories: CategoryStore(
   return ContentView(document: $doc);
 }
 
-#Preview("Configurable Content View") {
-  @State var doc = ArrdeearrDocument(version:1,
-    store: catStore)
-  return ConfigurableDisclosureContentView(document: $doc);
-}
