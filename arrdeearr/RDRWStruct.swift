@@ -75,6 +75,10 @@ struct ApplicationStore: Codable {
   var selectedCategoryRow: String?;
   var currentView: ApplicationView?;
 
+  mutating func toggleWantsChildInput(for categoryId: String) {
+    self.wantsChildInput[categoryId] = self.wantsChildInput[categoryId]  != nil ? true: nil;
+  }
+    
   enum ApplicationView: String, Codable {
     case category
     case fit
