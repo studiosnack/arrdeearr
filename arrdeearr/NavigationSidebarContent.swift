@@ -19,17 +19,24 @@ struct NavigationSidebarContent: View {
         rowId in document.store.application.selectedCategoryRow = rowId
       })
 
-      let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(store: document.store.categories, atPath: "root") ?? []
+      let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(
+        store: document.store.categories, atPath: "root"
+      ) ?? []
 
       func bindingForPath(path: String) -> Binding<Bool> {
-        Binding(get: {document.store.application.sideBarOpenedState[path] ?? false}, set: {val in document.store.application.sideBarOpenedState[path] = val ? val : nil})
+        return Binding(
+          get: {document.store.application.sideBarOpenedState[path] ?? false},
+          set: {val in document.store.application.sideBarOpenedState[path] = val ? val : nil})
       }
 
       return List(outlineData, id: \.id, selection: selectedCategoryRow) { item in
-          ConfigurableDisclosureGroup(data: item, path: \.children, isOpen: {tree in bindingForPath(path: tree.id)} ) { treeEntry in
-              SidebarCategoryRow(treeEntry: treeEntry)
-          }
+        ConfigurableDisclosureGroup(
+          data: item,
+          path: \.children,
+          isOpen: {tree in bindingForPath(path: tree.id)} ) {
+            entry in SidebarCategoryRow(treeEntry: entry)
         }
+      }
     }
 }
 

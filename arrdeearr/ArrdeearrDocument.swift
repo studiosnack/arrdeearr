@@ -62,9 +62,11 @@ struct ArrdeearrDocument: FileDocument {
       let onDiskJson = try decoder.decode(RDRWDbService.self, from: existingConfig!.regularFileContents!)
       // the RDRWStore is equatable so we can just check if the disk version matches
       if (onDiskJson.mainstore == store) {
+        print("no changes")
         // file unchanged, return existing wrapper
         return configuration.existingFile!
       } else {
+        print("updating file")
         // only update the filewrapper's rdrwstore file, preserving all other contents
         // first, need to remove the existing config before we can add the new wrapper
         configuration.existingFile?.removeFileWrapper(existingConfig!)
@@ -75,6 +77,7 @@ struct ArrdeearrDocument: FileDocument {
         return existingWrapper
       }
     } else {
+      print("creating a new file")
       // create a new wrapper and populate it
       let meta = try encoder.encode(["version": version])
 
