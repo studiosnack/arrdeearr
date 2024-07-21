@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Category: Codable {
+struct Category: Codable, Equatable {
   var id: String;
   var parentId: String;
   var name: String;
@@ -39,7 +39,7 @@ struct CategoryTree: Identifiable {
   }
 }
 
-struct CategoryStore: Codable {
+struct CategoryStore: Codable, Equatable {
   var categories: [Category] = [];
 //  sidebareOpenedState is vestigial property in the
 //  spec but doesn't get used
@@ -69,7 +69,7 @@ struct CategoryStore: Codable {
   }
 }
 
-struct ApplicationStore: Codable {
+struct ApplicationStore: Codable, Equatable {
   var sideBarOpenedState: [String: Bool] = [:];
   var wantsChildInput: [String: Bool] = [:];
   var selectedCategoryRow: String?;
@@ -79,13 +79,13 @@ struct ApplicationStore: Codable {
     self.wantsChildInput[categoryId] = self.wantsChildInput[categoryId]  != nil ? true: nil;
   }
     
-  enum ApplicationView: String, Codable {
+  enum ApplicationView: String, Codable, Equatable {
     case category
     case fit
   }
 }
 
-struct Item: Codable {
+struct Item: Codable, Equatable {
   let id: String;
   var dateAdded: Double;
   var properties: [Field];
@@ -95,7 +95,7 @@ struct Item: Codable {
   }
 }
 
-struct Field: Codable {
+struct Field: Codable, Equatable {
   var label: String;
   var categoryId: String?;
   var value: String?;
@@ -113,7 +113,7 @@ struct Field: Codable {
   }
 }
 
-struct ItemStore: Codable {
+struct ItemStore: Codable, Equatable {
   var items: [String: Item] = [:];
   
   func itemsWithCategory(id: String) -> [Item] {
@@ -123,10 +123,10 @@ struct ItemStore: Codable {
   }
 }
 
-struct FitStore: Codable {}
+struct FitStore: Codable, Equatable {}
 
 
-struct RDRWStore: Codable {
+struct RDRWStore: Codable, Equatable {
   var categories: CategoryStore = CategoryStore();
   var application: ApplicationStore = ApplicationStore();
   var items: ItemStore = ItemStore();
