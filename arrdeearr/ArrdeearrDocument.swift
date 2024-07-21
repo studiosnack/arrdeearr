@@ -36,6 +36,7 @@ struct ArrdeearrDocument: FileDocument {
   init(configuration: ReadConfiguration) throws {
     let decoder = JSONDecoder()
     let wrapper = configuration.file.fileWrappers
+    // should check here that this is a directory filewrapper
     guard let data = wrapper?["config.json"]?.regularFileContents
     else {
         throw CocoaError(.fileReadCorruptFile)
@@ -47,13 +48,43 @@ struct ArrdeearrDocument: FileDocument {
 
   func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
     let encoder = JSONEncoder()
+    let decoder = JSONDecoder()
     encoder.outputFormatting = .prettyPrinted
     let config = try encoder.encode(["mainstore": store])
-    let meta = try encoder.encode(["version": version])
 
-    return .init(directoryWithFileWrappers: [
-      "meta.json": .init(regularFileWithContents: meta),
-      "config.json": .init(regularFileWithContents: config)
-    ])
+    let updatedConfigWrapper = FileWrapper.init(regularFileWithContents: config)
+
+    if (configuration.existingFile != nil) {
+      let existingWrapper = configuration.existingFile!
+      let existingConfig = existingWrapper.fileWrappers?["config.json"]
+
+
+      let onDiskJson = try decoder.decode(RDRWDbService.self, from: existingConfig!.regularFileContents!)
+      // the RDRWStore is equatable so we can just check if the disk version matches
+      if (onDiskJson.mainstore == store) {
+        // file unchanged, return existing wrapper
+        return configuration.existingFile!
+      } else {
+        // only update the filewrapper's rdrwstore file, preserving all other contents
+        // first, need to remove the existing config before we can add the new wrapper
+        configuration.existingFile?.removeFileWrapper(existingConfig!)
+
+        // set the preferred filename so that it has the right name when we add the updated version
+        updatedConfigWrapper.preferredFilename = "config.json"
+        existingWrapper.addFileWrapper(updatedConfigWrapper)
+        return existingWrapper
+      }
+    } else {
+      // create a new wrapper and populate it
+      let meta = try encoder.encode(["version": version])
+
+      let tempWrapper = FileWrapper.init(directoryWithFileWrappers: [
+        "meta.json": .init(regularFileWithContents: meta),
+        "config.json": updatedConfigWrapper,
+      ])
+
+      return tempWrapper
+    }
+
   }
 }
