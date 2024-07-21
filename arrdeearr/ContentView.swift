@@ -18,7 +18,7 @@ extension FocusedValues {
   }
 }
 
-struct ContentView: View {
+struct OldContentView: View {
   @Binding var document: ArrdeearrDocument
 
   var body: some View {
@@ -85,6 +85,20 @@ struct ConfigurableDisclosureContentView: View {
   }
 }
 
+struct ContentView: View {
+  @Binding var document: ArrdeearrDocument;
+
+  var body: some View {
+
+    return NavigationSplitView {
+      NavigationSidebarContent(document: $document)
+    } content: {
+      NavigationContent(document: $document)
+    } detail: {
+    }
+  }
+}
+
 
 let catStore = RDRWStore(categories: CategoryStore(
   categories: [
@@ -126,6 +140,6 @@ let catStore = RDRWStore(categories: CategoryStore(
 #Preview("Default Content View") {
   @State var doc = ArrdeearrDocument(version:1,
     store: catStore)
-  return ContentView(document: $doc);
+  return OldContentView(document: $doc);
 }
 
