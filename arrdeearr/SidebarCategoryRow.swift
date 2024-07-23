@@ -9,10 +9,20 @@ import SwiftUI
 
 struct SidebarCategoryRow: View {
   var treeEntry: CategoryTree;
-  let contextClick: (_ item: CategoryTree) -> Any? = {item in nil}
+  var contextClick: (_ item: CategoryTree) -> Any?
 
   @Environment(\.isFocused) private var isFocused: Bool;
   @State private var buttonOpacity: Double = 0
+
+  init(treeEntry: CategoryTree, contextClick: @escaping (_ item: CategoryTree) -> Any?) {
+    self.treeEntry = treeEntry
+    self.contextClick = contextClick
+  }
+
+  init(treeEntry: CategoryTree) {
+    self.treeEntry = treeEntry
+    self.contextClick = {item in nil}
+  }
 
   func focusAnimation(hovering: Bool) {
     withAnimation(.easeInOut(duration: 0.14)) {
@@ -26,9 +36,7 @@ struct SidebarCategoryRow: View {
       NavigationLink(treeEntry.value.name, value: treeEntry.id)
       Spacer()
       Button {
-        if contextClick != nil {
-          contextClick(treeEntry)
-        }
+        contextClick(treeEntry)
       } label: {
         Label("Context Menu", 
               systemImage: "ellipsis.circle")

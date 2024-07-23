@@ -19,8 +19,20 @@ struct ConfigurableDisclosureGroup<Treelike, Children>: View where Children: Vie
     if (childData != nil) {
       DisclosureGroup(
         isExpanded: isOpen(data),
-        content: { ForEach(childData!) {child in ConfigurableDisclosureGroup(data: child, path: path, isOpen: isOpen, children: children)}  },
-        label: { children(data)}
+        content: {
+          ForEach(childData!) {
+            child in
+            ConfigurableDisclosureGroup(
+              data: child,
+              path: path,
+              isOpen: isOpen,
+              children: children
+            )
+          }
+        },
+        label: {
+          children(data)
+        }
         )
     } else {
       children(data)

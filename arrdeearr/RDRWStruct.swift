@@ -7,10 +7,20 @@
 
 import Foundation
 
+let nanoid = NanoID(alphabet: .nolookalikesSafe, size: 6)
+
 struct Category: Codable, Equatable {
   var id: String;
   var parentId: String;
   var name: String;
+
+  static func makeRoot(name: String) -> Category {
+    return Category(id: nanoid.new(), parentId: "root", name: name)
+  }
+
+  static func make(parentId: String, name: String) -> Category {
+    return Category(id: nanoid.new(), parentId: parentId, name: name)
+  }
 }
 
 struct CategoryTree: Identifiable {
@@ -50,6 +60,24 @@ struct CategoryStore: Codable, Equatable {
     return self.categories.first(where: {$0.id == id})
   }
 
+  mutating func add(parentId: String, name: String) {
+    let newCat = Category.make(parentId: parentId, name: name)
+    self.categories.append(newCat)
+    if (self.ordering[parentId] == nil || self.ordering[parentId]?.count ?? 0 == 0) {
+      self.ordering[parentId] = [newCat.id]
+    } else if (self.ordering[parentId] != nil && self.ordering[parentId]?.count ?? 0 > 0) {
+      self.ordering[parentId]?.append(newCat.id)
+    }
+  }
+
+  mutating func addCategoryTo(id: String, category: Category) {
+    let currentOrdering = self.ordering[id]
+    if (currentOrdering != nil) {
+      self.categories.append(category)
+      self.ordering[id]?.append(category.id)
+    }
+  }
+
   func categoryAsTree(id: String) -> [CategoryTree]? {
     let kids: [String]? = self.ordering[id];
     if (kids != nil) {
@@ -75,8 +103,8 @@ struct ApplicationStore: Codable, Equatable {
   var selectedCategoryRow: String?;
   var currentView: ApplicationView?;
 
-  mutating func toggleWantsChildInput(for categoryId: String) {
-    self.wantsChildInput[categoryId] = self.wantsChildInput[categoryId]  != nil ? true: nil;
+  mutating func toggleWantsChildInput(for categoryId: String) {    
+    self.wantsChildInput[categoryId] = self.wantsChildInput[categoryId] == nil ? true: nil;
   }
     
   enum ApplicationView: String, Codable, Equatable {
