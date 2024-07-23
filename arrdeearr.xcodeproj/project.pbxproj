@@ -11,6 +11,7 @@
 		8D1A6B442BB8B991008E95A5 /* SidebarCategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1A6B432BB8B991008E95A5 /* SidebarCategoryRow.swift */; };
 		8D9538CB2C4D72B6001E1851 /* NavigationSidebarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9538CA2C4D72B6001E1851 /* NavigationSidebarContent.swift */; };
 		8D9538CD2C4D7456001E1851 /* NavigationContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9538CC2C4D7456001E1851 /* NavigationContent.swift */; };
+		8D9538CF2C4EB54F001E1851 /* NanoID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9538CE2C4EB54F001E1851 /* NanoID.swift */; };
 		8DB4C24C2B9D1DA90057BDB1 /* RDRWStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4C24B2B9D1DA90057BDB1 /* RDRWStruct.swift */; };
 		8DC1EDBD2B935B2100A8FB01 /* arrdeearrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1EDBC2B935B2100A8FB01 /* arrdeearrApp.swift */; };
 		8DC1EDBF2B935B2100A8FB01 /* ArrdeearrDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1EDBE2B935B2100A8FB01 /* ArrdeearrDocument.swift */; };
@@ -45,6 +46,7 @@
 		8D1A6B432BB8B991008E95A5 /* SidebarCategoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarCategoryRow.swift; sourceTree = "<group>"; };
 		8D9538CA2C4D72B6001E1851 /* NavigationSidebarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSidebarContent.swift; sourceTree = "<group>"; };
 		8D9538CC2C4D7456001E1851 /* NavigationContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContent.swift; sourceTree = "<group>"; };
+		8D9538CE2C4EB54F001E1851 /* NanoID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NanoID.swift; sourceTree = "<group>"; };
 		8DB4C24B2B9D1DA90057BDB1 /* RDRWStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RDRWStruct.swift; sourceTree = "<group>"; };
 		8DC1EDB92B935B2100A8FB01 /* arrdeearr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = arrdeearr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DC1EDBC2B935B2100A8FB01 /* arrdeearrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = arrdeearrApp.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				8DC1EDC72B935B2200A8FB01 /* Info.plist */,
 				8DC1EDC82B935B2200A8FB01 /* arrdeearr.entitlements */,
 				8DC1EDC42B935B2200A8FB01 /* Preview Content */,
+				8D9538CE2C4EB54F001E1851 /* NanoID.swift */,
 			);
 			path = arrdeearr;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				8DC1EDC12B935B2100A8FB01 /* ContentView.swift in Sources */,
 				8DB4C24C2B9D1DA90057BDB1 /* RDRWStruct.swift in Sources */,
 				8D9538CD2C4D7456001E1851 /* NavigationContent.swift in Sources */,
+				8D9538CF2C4EB54F001E1851 /* NanoID.swift in Sources */,
 				8D9538CB2C4D72B6001E1851 /* NavigationSidebarContent.swift in Sources */,
 				8D1A6B422BA64B50008E95A5 /* ConfigurableDisclosureGroup.swift in Sources */,
 			);
