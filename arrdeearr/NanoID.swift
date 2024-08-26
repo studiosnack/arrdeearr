@@ -24,37 +24,37 @@ import Foundation
 /// let idSecond = nanoID.new()
 
 class NanoID {
-
+    
     // Shared Parameters
     private var size: Int
     private var alphabet: String
-
+    
     /// Inits an instance with Shared Parameters
     init(alphabet: NanoIDAlphabet..., size: Int) {
         self.size = size
         self.alphabet = NanoIDHelper.parse(alphabet)
     }
-
+    
     /// Generates a Nano ID using Shared Parameters
     func new() -> String {
         return NanoIDHelper.generate(from: alphabet, of: size)
     }
-
+    
     // Default Parameters
     private static let defaultSize = 21
     private static let defaultAphabet = NanoIDAlphabet.urlSafe.toString()
-
+    
     /// Generates a Nano ID using Default Parameters
     static func new() -> String {
         return NanoIDHelper.generate(from: defaultAphabet, of: defaultSize)
     }
-
+    
     /// Generates a Nano ID using given occasional parameters
     static func new(alphabet: NanoIDAlphabet..., size: Int) -> String {
         let charactersString = NanoIDHelper.parse(alphabet)
         return NanoIDHelper.generate(from: charactersString, of: size)
     }
-
+    
     /// Generates a Nano ID using Default Alphabet and given size
     static func new(_ size: Int) -> String {
         return NanoIDHelper.generate(from: NanoID.defaultAphabet, of: size)
@@ -62,31 +62,31 @@ class NanoID {
 }
 
 fileprivate class NanoIDHelper {
-
+    
     /// Parses input alphabets into a string
     static func parse(_ alphabets: [NanoIDAlphabet]) -> String {
-
+        
         var stringCharacters = ""
-
+        
         for alphabet in alphabets {
             stringCharacters.append(alphabet.toString())
         }
-
+        
         return stringCharacters
     }
-
+    
     /// Generates a Nano ID using given parameters
     static func generate(from alphabet: String, of length: Int) -> String {
         var nanoID = ""
-
+        
         for _ in 0..<length {
             let randomCharacter = NanoIDHelper.randomCharacter(from: alphabet)
             nanoID.append(randomCharacter)
         }
-
+        
         return nanoID
     }
-
+    
     /// Returns a random character from a given string
     static func randomCharacter(from string: String) -> Character {
         let randomNum = Int(arc4random_uniform(UInt32(string.count)))
@@ -101,16 +101,17 @@ enum NanoIDAlphabet {
     case lowercasedLatinLetters
     case numbers
     case nolookalikesSafe
-
+    case nolookalikes
+    
     func toString() -> String {
         switch self {
-        case .uppercasedLatinLetters, .lowercasedLatinLetters, .numbers, .nolookalikesSafe:
+        case .uppercasedLatinLetters, .lowercasedLatinLetters, .numbers, .nolookalikes, .nolookalikesSafe:
             return self.chars()
         case .urlSafe:
             return ("\(NanoIDAlphabet.uppercasedLatinLetters.chars())\(NanoIDAlphabet.lowercasedLatinLetters.chars())\(NanoIDAlphabet.numbers.chars())~_")
         }
     }
-
+    
     private func chars() -> String {
         switch self {
         case .uppercasedLatinLetters:
@@ -120,7 +121,9 @@ enum NanoIDAlphabet {
         case .numbers:
             return "1234567890"
         case .nolookalikesSafe:
-          return "6789BCDFGHJKLMNPQRTWbcdfghjkmnpqrtwz"
+            return "6789BCDFGHJKLMNPQRTWbcdfghjkmnpqrtwz"
+        case .nolookalikes:
+            return "346789ABCDEFGHJKLMNPQRTUVWXYabcdefghijkmnpqrtwxyz"
         default:
             return ""
         }
