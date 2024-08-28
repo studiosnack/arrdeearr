@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D1A6B422BA64B50008E95A5 /* ConfigurableDisclosureGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1A6B412BA64AFE008E95A5 /* ConfigurableDisclosureGroup.swift */; };
 		8D1A6B442BB8B991008E95A5 /* SidebarCategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1A6B432BB8B991008E95A5 /* SidebarCategoryRow.swift */; };
+		8D613BD42C7D1DB800BB69F8 /* ButtonTexfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D613BD32C7D1DB800BB69F8 /* ButtonTexfield.swift */; };
 		8D9538CB2C4D72B6001E1851 /* NavigationSidebarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9538CA2C4D72B6001E1851 /* NavigationSidebarContent.swift */; };
 		8D9538CD2C4D7456001E1851 /* NavigationContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9538CC2C4D7456001E1851 /* NavigationContent.swift */; };
 		8D9538CF2C4EB54F001E1851 /* NanoID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9538CE2C4EB54F001E1851 /* NanoID.swift */; };
@@ -44,6 +45,7 @@
 		8D1A6B402B9D5DC1008E95A5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8D1A6B412BA64AFE008E95A5 /* ConfigurableDisclosureGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableDisclosureGroup.swift; sourceTree = "<group>"; };
 		8D1A6B432BB8B991008E95A5 /* SidebarCategoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarCategoryRow.swift; sourceTree = "<group>"; };
+		8D613BD32C7D1DB800BB69F8 /* ButtonTexfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTexfield.swift; sourceTree = "<group>"; };
 		8D9538CA2C4D72B6001E1851 /* NavigationSidebarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSidebarContent.swift; sourceTree = "<group>"; };
 		8D9538CC2C4D7456001E1851 /* NavigationContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContent.swift; sourceTree = "<group>"; };
 		8D9538CE2C4EB54F001E1851 /* NanoID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NanoID.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				8D9538CC2C4D7456001E1851 /* NavigationContent.swift */,
+				8D613BD32C7D1DB800BB69F8 /* ButtonTexfield.swift */,
 				8D1A6B412BA64AFE008E95A5 /* ConfigurableDisclosureGroup.swift */,
 				8D1A6B432BB8B991008E95A5 /* SidebarCategoryRow.swift */,
 				8DB4C24B2B9D1DA90057BDB1 /* RDRWStruct.swift */,
@@ -292,6 +295,7 @@
 				8D9538CD2C4D7456001E1851 /* NavigationContent.swift in Sources */,
 				8D9538CF2C4EB54F001E1851 /* NanoID.swift in Sources */,
 				8D9538CB2C4D72B6001E1851 /* NavigationSidebarContent.swift in Sources */,
+				8D613BD42C7D1DB800BB69F8 /* ButtonTexfield.swift in Sources */,
 				8D1A6B422BA64B50008E95A5 /* ConfigurableDisclosureGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

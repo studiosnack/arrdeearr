@@ -11,15 +11,20 @@ let nanoid = NanoID(alphabet: .nolookalikesSafe, size: 6)
 
 struct Category: Codable, Equatable {
   var id: String;
-  var parentId: String;
   var name: String;
+  var parentId: String;
 
-  static func makeRoot(name: String) -> Category {
-    return Category(id: nanoid.new(), parentId: "root", name: name)
+  
+  init(id: String, name: String, parentId: String) {
+    self.id = id;
+    self.parentId = parentId;
+    self.name = name;
   }
-
-  static func make(parentId: String, name: String) -> Category {
-    return Category(id: nanoid.new(), parentId: parentId, name: name)
+  
+  init(name: String, parentId: String = "root") {
+    self.id = nanoid.new();
+    self.parentId = parentId;
+    self.name = name;
   }
 }
 
@@ -61,7 +66,7 @@ struct CategoryStore: Codable, Equatable {
   }
 
   mutating func add(parentId: String, name: String) {
-    let newCat = Category.make(parentId: parentId, name: name)
+    let newCat = Category(name: name, parentId: parentId)
     self.categories.append(newCat)
     if (self.ordering[parentId] == nil || self.ordering[parentId]?.count ?? 0 == 0) {
       self.ordering[parentId] = [newCat.id]
@@ -70,11 +75,11 @@ struct CategoryStore: Codable, Equatable {
     }
   }
 
-  mutating func addCategoryTo(id: String, category: Category) {
-    let currentOrdering = self.ordering[id]
+  mutating func addCategoryTo(parentId: String, category: Category) {
+    let currentOrdering = self.ordering[parentId]
     if (currentOrdering != nil) {
       self.categories.append(category)
-      self.ordering[id]?.append(category.id)
+      self.ordering[parentId]?.append(category.id)
     }
   }
 
