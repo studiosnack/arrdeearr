@@ -29,12 +29,14 @@ struct NavigationSidebarContent: View {
         set: {val in document.store.application.sideBarOpenedState[path] = val ? val : nil})
     }
 
-    return List(outlineData, id: \.id, selection: selectedCategoryRow) { category in
-
-      ConfigurableDisclosureGroup(
-        data: category,
-        path: \.children,
-        isOpen: {tree in sidebarOpenBinding(path: tree.id)} ) 
+    return VStack {
+      List(outlineData, id: \.id, selection: selectedCategoryRow) {
+        category in
+        
+        ConfigurableDisclosureGroup(
+          data: category,
+          path: \.children,
+          isOpen: {tree in sidebarOpenBinding(path: tree.id)} )
         {
           categoryEntry in
           SidebarEntry(
@@ -42,8 +44,11 @@ struct NavigationSidebarContent: View {
             categoryEntry: categoryEntry,
             document: $document
           )
-
+          
         }
+      }
+      Spacer()
+      RootTextFieldButton(store: $document.store)
     }
   }
 }
@@ -57,16 +62,18 @@ struct SidebarEntry: View {
   enum Field: Hashable {
     case CategoryName
   }
-  @FocusState private var hasFocus: Field?
+  @FocusState private var hasFocus: Bool
   
   func handleSubmit(name: String) -> Void {
     /**
     this is really wonky, should just use a popup here
      */
-    document.store.categories.add(parentId: categoryEntry.id, name: name)
+    document.store.categories.add(categoryName: name, parentId: categoryEntry.id)
     // hide the input after adding the new category
-    document.store.application.toggleWantsChildInput(for: categoryEntry.id)
+//    document.store.application.toggleWantsChildInput(for: categoryEntry.id)
+    document.store.application.sideBarOpenedState[categoryEntry.id] = true
     newCategoryName = ""
+    hasFocus = true
   }
 
   var body: some View {
@@ -80,14 +87,27 @@ struct SidebarEntry: View {
       )
       needsTextField ? Form() {
         TextField("Name", text: $newCategoryName, prompt: Text("Name"))
-          .focused($hasFocus, equals: .CategoryName)
+          .focused($hasFocus)
           .disableAutocorrection(true)
+          .onAppear {
+            hasFocus = true
+          }
+          .onExitCommand {
+            print("got esc")
+            document.store.application.toggleWantsChildInput(for: categoryEntry.id)
+//            return .handled
+          }
+          .onKeyPress(.escape) {
+            print("got an escape")
+            document.store.application.toggleWantsChildInput(for: categoryEntry.id)
+            return .handled
+          }
           .textFieldStyle(.roundedBorder)
+          .font(.caption)
           .onSubmit {
             handleSubmit(name: newCategoryName)
-
           }
-      }.defaultFocus($hasFocus, .CategoryName)
+      }
         .labelsHidden() : nil
     }
   }

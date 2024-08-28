@@ -50,9 +50,12 @@ struct OutlineContentView: View {
   }
 }
 
+/**
+ unused
+ */
 struct ConfigurableDisclosureContentView: View {
   @Binding var document: ArrdeearrDocument;
-
+  
   var body: some View {
 
     let selectedCategoryRow = Binding(get: {
@@ -70,11 +73,15 @@ struct ConfigurableDisclosureContentView: View {
     let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(store: document.store.categories, atPath: "root") ?? []
 
     return NavigationSplitView {
-      List(outlineData, id: \.id, selection: selectedCategoryRow) { item in
-          ConfigurableDisclosureGroup(data: item, path: \.children, isOpen: {tree in bindingForPath(path: tree.id)} ) { treeEntry in
-              SidebarCategoryRow(treeEntry: treeEntry)
-          }
+      VStack{
+        List(outlineData, id: \.id, selection: selectedCategoryRow) { item in
+            ConfigurableDisclosureGroup(data: item, path: \.children, isOpen: {tree in bindingForPath(path: tree.id)} ) { treeEntry in
+                SidebarCategoryRow(treeEntry: treeEntry)
+            }
         }
+        Spacer()
+        RootTextFieldButton(store: $document.store)
+      }
       } content: {
         availableItems.count > 0 ? List(availableItems, id: \.id) { item in
           let itemName = item.propertyWith(label: "Name") ?? "missing name"
@@ -102,10 +109,10 @@ struct ContentView: View {
 
 let catStore = RDRWStore(categories: CategoryStore(
   categories: [
-    Category(id: "foo", parentId: "root", name: "Fooooo"),
-    Category(id: "bar", parentId: "root", name: "Baaaaar"),
-    Category(id: "baz", parentId: "foo", name: "Baz!"),
-    Category(id: "qux", parentId: "baz", name: "Quxx!")
+    Category(id: "foo", name: "Fooooo"),
+    Category(id: "bar", name: "Baaaaar"),
+    Category(id: "baz", name: "Baz!", parentId: "foo"),
+    Category(name: "Quxx!", parentId: "baz")
   ],
   ordering:[
     "root": ["foo", "bar"],
@@ -125,20 +132,20 @@ let catStore = RDRWStore(categories: CategoryStore(
 
 
 #Preview("Configurable Content View") {
-  @State var doc = ArrdeearrDocument(version:1,
+  @Previewable @State var doc = ArrdeearrDocument(version:1,
     store: catStore)
   return ConfigurableDisclosureContentView(document: $doc);
 }
 
 #Preview("Outline Content View") {
-  @State var doc = ArrdeearrDocument(version:1,
+  @Previewable @State var doc = ArrdeearrDocument(version:1,
     store: catStore)
 
   return OutlineContentView(document: $doc);
 }
 
 #Preview("Default Content View") {
-  @State var doc = ArrdeearrDocument(version:1,
+  @Previewable @State var doc = ArrdeearrDocument(version:1,
     store: catStore)
   return OldContentView(document: $doc);
 }

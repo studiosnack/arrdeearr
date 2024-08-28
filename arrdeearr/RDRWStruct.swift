@@ -15,7 +15,7 @@ struct Category: Codable, Equatable {
   var parentId: String;
 
   
-  init(id: String, name: String, parentId: String) {
+  init(id: String, name: String, parentId: String = "root") {
     self.id = id;
     self.parentId = parentId;
     self.name = name;
@@ -65,13 +65,15 @@ struct CategoryStore: Codable, Equatable {
     return self.categories.first(where: {$0.id == id})
   }
 
-  mutating func add(parentId: String, name: String) {
-    let newCat = Category(name: name, parentId: parentId)
+  
+  mutating func add(categoryName: String, parentId: String = "root") {
+    let newCat = Category(name: categoryName, parentId: parentId)
     self.categories.append(newCat)
-    if (self.ordering[parentId] == nil || self.ordering[parentId]?.count ?? 0 == 0) {
+    
+    if (self.ordering[parentId] != nil) {
+      self.ordering[parentId]!.append(newCat.id)
+    } else {
       self.ordering[parentId] = [newCat.id]
-    } else if (self.ordering[parentId] != nil && self.ordering[parentId]?.count ?? 0 > 0) {
-      self.ordering[parentId]?.append(newCat.id)
     }
   }
 
