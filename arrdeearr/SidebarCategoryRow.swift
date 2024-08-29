@@ -51,12 +51,10 @@ struct SidebarCategoryRow: View {
         print()
         return .handled
       })
-      /*
        // not sure why this doesn't work
       .onChange(of: isFocused) { focusAnimation(hovering: isFocused)
         print("oh wow \(isFocused ? "focused":"notfocused")")
       }
-       */
 
   }
 }

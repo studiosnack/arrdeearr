@@ -29,9 +29,11 @@ struct ArrdeearrDocument: FileDocument {
   init(version: Int = 1, store: RDRWStore = RDRWStore()) {
     self.version = version
     self.store = store;
+    
+    self.store.application.wantsChildInput["root"] = true
   }
 
-  static var readableContentTypes: [UTType] { [.exampleText, .rdrwPackage] }
+  static var readableContentTypes: [UTType] { [.rdrwPackage] }
 
   init(configuration: ReadConfiguration) throws {
     let decoder = JSONDecoder()

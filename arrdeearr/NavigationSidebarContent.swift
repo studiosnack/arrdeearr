@@ -10,14 +10,15 @@ import SwiftUI
 struct NavigationSidebarContent: View {
 
   @Binding var document: ArrdeearrDocument;
-
+  @Binding var selectedRow: String?
+  
   var body: some View {
 
-    let selectedCategoryRow = Binding(get: {
-      document.store.application.selectedCategoryRow
-    }, set: {
-      rowId in document.store.application.selectedCategoryRow = rowId
-    })
+//    let selectedCategoryRow = Binding(get: {
+//      document.store.application.selectedCategoryRow
+//    }, set: {
+//      rowId in document.store.application.selectedCategoryRow = rowId
+//    })
 
     let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(
       store: document.store.categories, atPath: "root"
@@ -30,7 +31,7 @@ struct NavigationSidebarContent: View {
     }
 
     return VStack {
-      List(outlineData, id: \.id, selection: selectedCategoryRow) {
+      List(outlineData, id: \.id, selection: $selectedRow) {
         category in
         
         ConfigurableDisclosureGroup(
@@ -93,14 +94,7 @@ struct SidebarEntry: View {
             hasFocus = true
           }
           .onExitCommand {
-            print("got esc")
             document.store.application.toggleWantsChildInput(for: categoryEntry.id)
-//            return .handled
-          }
-          .onKeyPress(.escape) {
-            print("got an escape")
-            document.store.application.toggleWantsChildInput(for: categoryEntry.id)
-            return .handled
           }
           .textFieldStyle(.roundedBorder)
           .font(.caption)

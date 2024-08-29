@@ -5,20 +5,22 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeName</key>
-			<string>Redraw Doc Package</string>
-			<key>LSTypeIsPackage</key>
-			<true/>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>rdrw</string>
 			</array>
+			<key>CFBundleTypeName</key>
+			<string>Redraw Doc Package</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.example.plain-text</string>
+				<string>cx.generic.rdrw-doc</string>
 			</array>
+			<key>LSTypeIsPackage</key>
+			<true/>
 			<key>NSUbiquitousDocumentUserActivityType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).document</string>
 		</dict>
@@ -26,12 +28,12 @@
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
-			<key>UTTypeDescription</key>
-			<string>Redraw Database</string>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>com.apple.package</string>
 			</array>
+			<key>UTTypeDescription</key>
+			<string>Redraw Database</string>
 			<key>UTTypeIdentifier</key>
 			<string>cx.generic.rdrw-doc</string>
 			<key>UTTypeTagSpecification</key>
@@ -44,19 +46,17 @@
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.plain-text</string>
-			</array>
+			<array/>
 			<key>UTTypeDescription</key>
-			<string>Example Text</string>
+			<string></string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>com.example.plain-text</string>
+			<string></string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
-				<array>
-					<string>exampletext</string>
-				</array>
+				<array/>
 			</dict>
 		</dict>
 	</array>

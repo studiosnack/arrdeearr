@@ -18,6 +18,9 @@ extension FocusedValues {
   }
 }
 
+/**
+ unused
+ */
 struct OldContentView: View {
   @Binding var document: ArrdeearrDocument
 
@@ -34,6 +37,9 @@ struct OldContentView: View {
   }
 }
 
+/**
+ unused
+ */
 struct OutlineContentView: View {
   @Binding var document: ArrdeearrDocument
 
@@ -94,11 +100,22 @@ struct ConfigurableDisclosureContentView: View {
 
 struct ContentView: View {
   @Binding var document: ArrdeearrDocument;
-
+  
   var body: some View {
 
+    let selectedCategoryRow = Binding(get: {
+      document.store.application.selectedCategoryRow
+    }, set: { rowId in
+      // TODO(marcos) figure out how to make selection handle
+      // bindings bound to state objects
+      DispatchQueue.main.async {
+        document.store.application.selectedCategoryRow = rowId;
+      }
+    })
+
+    
     return NavigationSplitView {
-      NavigationSidebarContent(document: $document)
+      NavigationSidebarContent(document: $document, selectedRow: selectedCategoryRow)
     } content: {
       NavigationContent(document: $document)
     } detail: {
@@ -109,10 +126,10 @@ struct ContentView: View {
 
 let catStore = RDRWStore(categories: CategoryStore(
   categories: [
-    Category(id: "foo", name: "Fooooo"),
-    Category(id: "bar", name: "Baaaaar"),
+    Category(id: "foo", name: "Fooooo", parentId: "root"),
+    Category(id: "bar", name: "Baaaaar", parentId: "root"),
     Category(id: "baz", name: "Baz!", parentId: "foo"),
-    Category(name: "Quxx!", parentId: "baz")
+    Category(id: "qux", name: "Quxx!", parentId: "baz")
   ],
   ordering:[
     "root": ["foo", "bar"],
