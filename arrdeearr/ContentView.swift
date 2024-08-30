@@ -102,20 +102,9 @@ struct ContentView: View {
   @Binding var document: ArrdeearrDocument;
   
   var body: some View {
-
-    let selectedCategoryRow = Binding(get: {
-      document.store.application.selectedCategoryRow
-    }, set: { rowId in
-      // TODO(marcos) figure out how to make selection handle
-      // bindings bound to state objects
-      DispatchQueue.main.async {
-        document.store.application.selectedCategoryRow = rowId;
-      }
-    })
-
     
     return NavigationSplitView {
-      NavigationSidebarContent(document: $document, selectedRow: selectedCategoryRow)
+      NavigationSidebarContent(document: $document, selectedRow: $document.store.application.selectedCategoryRow)
     } content: {
       NavigationContent(document: $document)
     } detail: {

@@ -10,15 +10,15 @@ import SwiftUI
 struct NavigationSidebarContent: View {
 
   @Binding var document: ArrdeearrDocument;
+  //  TODO(marcos) selected row might need to move out of the document to prevent errors like
+  /**
+   "Publishing changes from within view updates is not allowed, this will cause undefined behavior."
+   */
+  // not sure if we should just serialize it back into the doc whenever we save, but that
+  // feels a little messy
   @Binding var selectedRow: String?
   
   var body: some View {
-
-//    let selectedCategoryRow = Binding(get: {
-//      document.store.application.selectedCategoryRow
-//    }, set: {
-//      rowId in document.store.application.selectedCategoryRow = rowId
-//    })
 
     let outlineData: [CategoryTree] = CategoryTree.forCategoryStore(
       store: document.store.categories, atPath: "root"

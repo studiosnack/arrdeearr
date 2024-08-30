@@ -12,12 +12,10 @@ struct NavigationContent: View {
 
   var body: some View {
     
-//    let selectedCategoryRow = Binding(get: {
-//      document.store.application.selectedCategoryRow
-//    }, set: {
-//      rowId in document.store.application.selectedCategoryRow = rowId
-//    })
     let selectedCategoryRow = document.store.application.selectedCategoryRow
+    if (selectedCategoryRow == nil) {
+      return AnyView(Text(""))
+    }
     let selectedCategory = document.store.categories.categoryFor(id: selectedCategoryRow!)
 
     let availableItems = selectedCategoryRow != nil ? document.store.items.itemsWithCategory(id: selectedCategoryRow!) : []
