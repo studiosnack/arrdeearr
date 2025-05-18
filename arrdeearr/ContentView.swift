@@ -99,15 +99,29 @@ struct ConfigurableDisclosureContentView: View {
 }
 
 struct ContentView: View {
-  @Binding var document: ArrdeearrDocument;
+  @Binding var doc: ArrdeearrDocument
+  @State var selectedRow: String?
+  
+  init (document: Binding<ArrdeearrDocument>) {
+    self._doc = document
+    self._selectedRow = State(initialValue: doc.store.application.selectedCategoryRow)
+  }
   
   var body: some View {
     
     return NavigationSplitView {
-      NavigationSidebarContent(document: $document, selectedRow: $document.store.application.selectedCategoryRow)
+      NavigationSidebarContent(
+        document: $doc,
+        selectedRow: $selectedRow
+      )
     } content: {
-      NavigationContent(document: $document)
+      NavigationContent(document: $doc)
     } detail: {
+    }.onChange(of: selectedRow) {
+      // persist selected row in async task 
+      Task {
+        doc.store.application.selectedCategoryRow = selectedRow
+      }
     }
   }
 }

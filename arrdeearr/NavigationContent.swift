@@ -10,6 +10,8 @@ import SwiftUI
 struct NavigationContent: View {
   @Binding var document: ArrdeearrDocument;
 
+  @State var isModalPresenting: Bool = false
+  
   var body: some View {
     
     let selectedCategoryRow = document.store.application.selectedCategoryRow
@@ -25,6 +27,13 @@ struct NavigationContent: View {
         VStack {
           Text("would show items for \(selectedCategory?.name ?? "missing category")")
           Spacer()
+          Button(action: {
+            isModalPresenting.toggle()
+          }){
+            Text("neat")
+          }.sheet(isPresented: $isModalPresenting, onDismiss: {}) {
+            Text("woah")
+          }
         }
         
       )
@@ -32,9 +41,18 @@ struct NavigationContent: View {
     
     
     return AnyView(
-      List(availableItems, id: \.id) { item in
-        let itemName = item.propertyWith(label: "Name") ?? "missing name"
-        Text("\(itemName)")
+      VStack {
+        List(availableItems, id: \.id) { item in
+          let itemName = item.propertyWith(label: "Name") ?? "missing name"
+          Text("\(itemName)")
+        }
+        Button(action: {
+          isModalPresenting.toggle()
+        }){
+          Text("neat")
+        }.sheet(isPresented: $isModalPresenting, onDismiss: {}) {
+          
+        }
       }
     )
   }

@@ -41,20 +41,21 @@ struct SidebarCategoryRow: View {
         Label("Context Menu", 
               systemImage: "ellipsis.circle")
         .labelStyle(.iconOnly)
+        .font(.caption)
       }
       .opacity(buttonOpacity)
       .buttonStyle(.borderless)
     }.onHover(perform: focusAnimation)
-      .focusable()
       .focusedValue(\.selectedCategory, treeEntry.value)
-      .onKeyPress(.return, action: {
-        print()
-        return .handled
-      })
-       // not sure why this doesn't work
-      .onChange(of: isFocused) { focusAnimation(hovering: isFocused)
-        print("oh wow \(isFocused ? "focused":"notfocused")")
-      }
+//      .focusable()
+//      .onKeyPress(.return, action: {
+//        print("kp")
+//        return .handled
+//      })
+//       // not sure why this doesn't work
+//      .onChange(of: isFocused) { focusAnimation(hovering: isFocused)
+//        print("oh wow \(isFocused ? "focused":"notfocused")")
+//      }
 
   }
 }

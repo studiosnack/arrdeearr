@@ -70,8 +70,6 @@ struct SidebarEntry: View {
     this is really wonky, should just use a popup here
      */
     document.store.categories.add(categoryName: name, parentId: categoryEntry.id)
-    // hide the input after adding the new category
-//    document.store.application.toggleWantsChildInput(for: categoryEntry.id)
     document.store.application.sideBarOpenedState[categoryEntry.id] = true
     newCategoryName = ""
     hasFocus = true
